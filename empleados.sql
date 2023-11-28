@@ -58,6 +58,28 @@ INSERT INTO `empleados` (`codigo`, `nombres`, `lugar_nacimiento`, `fecha_nacimie
 ALTER TABLE `empleados`
   ADD PRIMARY KEY (`codigo`);
 
+
+-- --------------------------------------------------------
+-- table `users`
+
+CREATE TABLE users(
+  id_user int(11) NOT NULL AUTO_INCREMENT,
+  user varchar(50) NOT NULL,
+  password varchar(50) NOT NULL,
+  name varchar(50) NOT NULL,
+  apellidos varchar(50),
+  fecha_nac date,
+  mail varchar(50),
+  num_phone varchar(50),
+  poblacion varchar(50),
+  rol int,
+  PRIMARY KEY (id_user)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+INSERT INTO users (user, password, name, apellidos, fecha_nac, mail, num_phone, poblacion, rol) VALUES
+('user1', sha1('user1'), 'Usuario', 'Primer User', '2017-06-07', 'u@user.com', '12345678', 'San Salvador', 1),
+('user2', sha1('user2'), 'Usuario', 'Segundo User', '2017-06-07', 'u2@user.com', '87654321', 'Mexico', 2);
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
