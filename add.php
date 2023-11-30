@@ -1,9 +1,11 @@
 <?php
 	include("conexion.php");
 	session_start();
-	if(!isset($_SESSION['user'])){
+
+	if(!isset($_SESSION['username'])){
 		header ("location: index.php");
 	}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -55,11 +57,12 @@ Email	 	 : info@obedalvarado.pw
 				$puesto		 = mysqli_real_escape_string($con,(strip_tags($_POST["puesto"],ENT_QUOTES)));//Escanpando caracteres 
 				$estado			 = mysqli_real_escape_string($con,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres 
 				
-			 $miConsulta = "SELECT * FROM empleados WHERE codigo='$codigo'"; //crear consulta que seleccione el registro donde el campo codigo sea igual a la variable $codigo
+			 $miConsulta = "SELECT * FROM empleados where codigo =".$codigo; //crear consulta que seleccione el registro donde el campo codigo sea igual a la variable $codigo
 
 				$cek = mysqli_query($con, $miConsulta);
 				if(mysqli_num_rows($cek) == 0){
-                        $miConsulta = "INSERT INTO empleados VALUES('$codigo', '$nombres', '$lugar_nacimiento', '$fecha_nacimiento', '$direccion', '$telefono', '$puesto', '$estado')"; //crear la consulta del INSERT INTO 
+					$miConsulta = "INSERT INTO usuarios (usuario, password, nombre, apellidos, fechanac, correo, telefono, poblacion, rol) VALUES ('$usuario', '$password', '$nombre', '$apellidos', '$fechanac', '$correo', '$telefono', '$poblacion', '$rol')";
+					//crear la consulta del INSERT INTO 
 						$insert = mysqli_query($con, $miConsulta) or die(mysqli_error());
 						if($insert){
 							echo '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Bien hecho! Los datos han sido guardados con éxito.</div>';

@@ -11,8 +11,9 @@
 			<div id="navbar" class="navbar-collapse collapse">
 				<ul class="nav navbar-nav ">
 					<li class="active"><a href="empleados.php">Lista de empleados</a></li>
-					<li><a href="add.php">Agregar datos</a></li>
-					<li><a href="logout.php">Logout</a></li>
+					<li><a href="add.php">Agregar datos de empleados</a></li>
+					<li class="active"><a href="usuarios.php">Lista de Usuarios</a></li>
+					<li><a href="addUsuarios.php">Agregar datos de usuarios</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 	</div>
