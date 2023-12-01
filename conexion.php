@@ -1,8 +1,8 @@
 <?php
 /*Datos de conexion a la base de datos*/
 $db_host = "localhost";
-$db_user = "ponys";
-$db_pass = "P0ny_1029";
+$db_user = "root";
+$db_pass = "";
 $db_name = "db_empleados";
 
 $con = mysqli_connect($db_host, $db_user, $db_pass, $db_name);

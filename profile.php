@@ -1,5 +1,11 @@
 <?php
-include("conexion.php");
+	include("conexion.php");
+	session_start();
+
+	if(!isset($_SESSION['username'])){
+		header ("location: index.php");
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -43,18 +49,18 @@ Email	 	 : info@obedalvarado.pw
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($con,(strip_tags($_GET["nik"],ENT_QUOTES)));
 			
-            $miConsulta = "SELECT * FROM empleados WHERE codigo='$nik'"; // Buscar el registro donde codigo sea igual a variable $nik
+            $miConsulta = "SELECT * from empleados WHERE codigo =".$nik; // Buscar el registro donde codigo sea igual a variable $nik
             
 			$sql = mysqli_query($con, $miConsulta);
 			if(mysqli_num_rows($sql) == 0){
-				header("Location: empleados.php");
+				header("Location: index.php");
 			}else{
 				$row = mysqli_fetch_assoc($sql);
 			}
 			
 			if(isset($_GET['aksi']) == 'delete'){
                 
-                $miConsulta = "DELETE FROM empleados WHERE codigo='$nik'"; //crear la consulta para borrar el registro de codigo igual a variable $nik
+                $miConsulta = "DELETE from empleados WHERE codigo =".$nik; //crear la consulta para borrar el registro de codigo igual a variable $nik
 				$delete = mysqli_query($con, $miConsulta);
 				if($delete){
 					echo '<div class="alert alert-danger alert-dismissable">><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>Data berhasil dihapus.</div>';

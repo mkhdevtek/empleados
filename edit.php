@@ -1,5 +1,11 @@
 <?php
-include("conexion.php");
+	include("conexion.php");
+	session_start();
+
+	if(!isset($_SESSION['username'])){
+		header ("location: index.php");
+	}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -44,10 +50,10 @@ Email	 	 : info@obedalvarado.pw
 			// escaping, additionally removing everything that could be (html/javascript-) code
 			$nik = mysqli_real_escape_string($con,(strip_tags($_GET["nik"],ENT_QUOTES)));
             //Buscar en el campo codigo el dato que coindica con la variable $nik para editar el registro
-            $miConsulta = "SELECT * FROM empleados WHERE codigo='$nik'"; 
+            $miConsulta = "SELECT*FROM empleados WHERE codigo=".$nik; 
 			$sql = mysqli_query($con, $miConsulta);
 			if(mysqli_num_rows($sql) == 0){
-				header("Location: empleados.php");
+				header("Location: index.php");
 			}else{
 				$row = mysqli_fetch_assoc($sql);
 			}
@@ -62,7 +68,16 @@ Email	 	 : info@obedalvarado.pw
 				$estado			 = mysqli_real_escape_string($con,(strip_tags($_POST["estado"],ENT_QUOTES)));//Escanpando caracteres  
 				
                 
-                $miConsulta = "UPDATE empleados SET codigo='$codigo', nombres='$nombres', lugar_nacimiento='$lugar_nacimiento', fecha_nacimiento='$fecha_nacimiento', direccion='$direccion', telefono='$telefono', puesto='$puesto', estado='$estado'"; //Crear el UPDATE para el campo codigo igual a variable $nik
+                $miConsulta = "UPDATE empleados SET 
+				codigo = '$codigo',
+				nombres = '$nombres',
+				lugar_nacimiento = '$lugar_nacimiento',
+				fecha_nacimiento = '$fecha_nacimiento',
+				direccion = '$direccion',
+				telefono = '$telefono',
+				puesto = '$puesto',
+				estado = '$estado'
+				WHERE codigo = '$nik'"; //Crear el UPDATE para el campo codigo igual a variable $nik
                 
 				$update = mysqli_query($con, $miConsulta) or die(mysqli_error());
 				if($update){

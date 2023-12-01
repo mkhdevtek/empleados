@@ -1,0 +1,4 @@
+<?php
+    echo "ESPACIO PARA REGISTRAR NUEVO USUARIO";
+
+?>
