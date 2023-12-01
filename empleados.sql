@@ -61,3 +61,62 @@ ALTER TABLE `empleados`
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+
+
+CREATE TABLE bitacora (
+    codigo_ant varchar(10) NOT NULL,
+    nombres_ant varchar(50) NOT NULL,
+    lugar_nacimiento varchar(30) NOT NULL,
+    fecha_nacimiento varchar(30) NOT NULL,
+    direccion_ant varchar(50) NOT NULL,
+    telefono_ant varchar(10) NOT NULL,
+    puesto_ant varchar(15) NOT NULL,
+    estado_ant int(11) NOT NULL,
+    fecha_mod datetime NOT NULL,
+    PRIMARY KEY (id_usuario),
+    INDEX codigo_ant_index (codigo_ant)
+);
+
+
+DELIMITER //
+
+CREATE TRIGGER before_update_empleados
+BEFORE UPDATE
+ON empleados FOR EACH ROW
+
+BEGIN
+    IF NEW.codigo <> OLD.codigo OR
+       NEW.nombres <> OLD.nombres OR
+       NEW.lugar_nacimiento <> OLD.lugar_nacimiento OR
+       NEW.fecha_nacimiento <> OLD.fecha_nacimiento OR
+       NEW.direccion <> OLD.direccion OR
+       NEW.telefono <> OLD.telefono OR
+       NEW.puesto <> OLD.puesto OR
+       NEW.estado <> OLD.estado THEN
+
+        INSERT INTO bitacora (
+            codigo_ant,
+            nombres_ant,
+            lugar_nacimiento,
+            fecha_nacimiento,
+            direccion_ant,
+            telefono_ant,
+            puesto_ant,
+            estado_ant,
+            fecha_mod
+        ) VALUES (
+            OLD.codigo,
+            OLD.nombres,
+            OLD.lugar_nacimiento,
+            OLD.fecha_nacimiento,
+            OLD.direccion,
+            OLD.telefono,
+            OLD.puesto,
+            OLD.estado,
+            NOW()
+        );
+
+    END IF;
+END //
+
+DELIMITER ;
